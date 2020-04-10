@@ -60,12 +60,17 @@ require_once 'view/inc/functions.php';?>
 
             </div>
 
-
+            <section class="my-4">
+                <h4>Komentarai/Pastabos</h4>
+                <p>
+                    <?= $ticket["comment"];?>
+                </p>
+            </section>
 
         </div>
     </div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="view/js/bootstrap.min.js"></script>
+<script src="view/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

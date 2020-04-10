@@ -1,4 +1,6 @@
-<?php require_once 'view/inc/form_select_arrays.php'; ?>
+<?php
+require_once 'view/inc/form_select_arrays.php';
+require_once 'view/inc/form_validation.php';?>
 
 <!doctype html>
 <html lang="lt">
@@ -17,11 +19,24 @@
 <body>
     <div class="container-fluid">
         <div class="container">
-            <section>
+            <section class="mt-4">
                 <h2>Suformuokite skrydžio bilietą</h2>
                 <p>Užpildykite formą ir spauskite "Spausdinti"</p>
 
-                <form method="post">
+                <?php
+                if (isset($_POST['print']) && !empty(validate())) {
+                    foreach (validate() as $er_value):?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <?= $er_value;?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <?php
+                    endforeach;
+                }?>
+
+                <form method="post" class="mb-5">
                     <div class="form-group">
                         <label for="flight_number">Skrydžio numeris</label>
                         <select class="custom-select" id="flight_number" name="flight_number">
@@ -32,16 +47,19 @@
                     </div>
                     <div class="form-group">
                         <label for="a_k">Asmens kodas</label>
-                        <input type="number" id="a_k" name="a_k" min="10000000000" max="99999999999" class="form-control" placeholder="Asmens kodas">
+                        <input type="number" id="a_k" name="a_k" class="form-control" placeholder="Asmens kodas"
+                               value ="<?= isset($_POST["a_k"]) ? $_POST["a_k"] : "";?>">
                     </div>
                     <div class="form-row">
                         <div class="form-group col">
                             <label for="first_name">Vardas</label>
-                            <input type="text" id="first_name" name="first_name" class="form-control" placeholder="Vardas">
+                            <input type="text" id="first_name" name="first_name" class="form-control" placeholder="Vardas"
+                                   value="<?= isset($_POST["first_name"]) ? $_POST["first_name"] : "";?>">
                         </div>
                         <div class="form-group col">
                             <label for="last_name">Pavardė</label>
-                            <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Pavardė">
+                            <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Pavardė"
+                                   value="<?= isset($_POST["last_name"]) ? $_POST["last_name"] : "";?>">
                         </div>
                     </div>
                     <div class="form-row">
@@ -66,7 +84,8 @@
                         <div class="form-group col">
                             <label for="price">Skrydžio kaina</label>
                             <div class="input-group">
-                                <input class="form-control" id="price" name="price" type="number" min="1" placeholder="Kaina eurais">
+                                <input class="form-control" id="price" name="price" type="number" min="1" placeholder="Kaina eurais"
+                                       value="<?= isset($_POST["price"]) ? $_POST["price"] : "";?>">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">€</div>
                                 </div>
@@ -85,7 +104,7 @@
                     </div>
                     <div class="form-group">
                         <label for="comment">Pastabos</label>
-                        <textarea class="form-control" id="comment" rows="3" name="comment" placeholder="Įveskite pastabas"></textarea>
+                        <textarea class="form-control" id="comment" rows="3" name="comment" placeholder="Įveskite pastabas"><?= isset($_POST["comment"]) ? $_POST["comment"] : "";?></textarea>
                     </div>
                     <button type="submit" name="print" class="btn btn-primary">Spausdinti</button>
                 </form>
@@ -95,7 +114,7 @@
     </div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="view/js/bootstrap.min.js"></script>
+<script src="view/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 

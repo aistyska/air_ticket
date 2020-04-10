@@ -32,11 +32,22 @@ function getCompany($companies) {
 
 function generateTicket($companies){
     $times = generateTimes();
+    $from_post = [
+        "flight_number" => htmlspecialchars($_POST['flight_number']),
+        "a_k" => htmlspecialchars($_POST['a_k']),
+        "first_name" => htmlspecialchars($_POST['first_name']),
+        "last_name" => htmlspecialchars($_POST['last_name']),
+        "from" => htmlspecialchars($_POST['from']),
+        "to" => htmlspecialchars($_POST['to']),
+        "price" => htmlspecialchars($_POST['price']),
+        "baggage" => htmlspecialchars($_POST['baggage']),
+        "comment" => htmlspecialchars($_POST['comment'])
+    ];
     $ticket = [
         "date" => flightDate(),
         "company" => getCompany($companies)
     ];
-    $ticket = array_merge($_POST, $ticket, $times);
+    $ticket = array_merge($from_post, $ticket, $times);
     if ($ticket["baggage"] != 20) {
         $ticket["price"] += 30;
         $ticket["tax"] = 30;
