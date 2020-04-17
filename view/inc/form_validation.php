@@ -38,7 +38,7 @@ function validate() {
     if (empty($_POST["baggage"])) {
         $val_errors["baggage"] = "Nepasirinktinas bagažo svoris";
     }
-    if (!preg_match('/[\w\s]{50,1000}$/', $_POST["comment"])){
+    if (!preg_match('/^[\w\s]{50,1000}$/', $_POST["comment"])){
         if (empty($_POST["comment"])) {
             $val_errors["comment"] = "Nepateiktos pastabos. Įrašykite komentarus bei pastabas";
         } else if (strlen($_POST["comment"]) < 50) {
